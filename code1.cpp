@@ -158,4 +158,84 @@ row2--;
 line_ver(row1,row2,column1,l2);
 line_ver(row1,row2,column2,l2);
 }
+//============================================================
+//  FUNCTION TO DISPLAY MAIN MENU AND CALL OTHER FUNCTIONS
+//============================================================
+ 
+void control::main_menu(void)
+{
+char ch;
+while (1)
+      {
+	clrscr();
+	shape s;
+	s.box(10,5,71,21,219);
+	s.box(9,4,72,22,218);
+	textcolor(LIGHTBLUE+BLINK);
+	textbackground(BLACK);
+	gotoxy(32,7);
+	cprintf(" B A N K I N G ");
+	gotoxy(35,9);
+	cprintf(" OPTIONS ");
+	textcolor(LIGHTBLUE);
+	textbackground(BLACK);
+	gotoxy(30,11);
+	cout<<"1: SEE ACCOUNT ";
+	gotoxy(30,12);
+	cout<<"2: LIST OF ACCOUNTS ";
+	gotoxy(30,13);
+	cout<<"3: TRANSACTIONS ";
+	gotoxy(30,14);
+	cout<<"4: OPEN NEW ACCOUNT ";
+	gotoxy(30,15);
+	cout<<"5: EDIT ACCOUNTS ";
+	gotoxy(30,16);
+	cout<<"6: HELP ";
+	gotoxy(30,17);
+	cout<<"0: QUIT ";
+	gotoxy(30,19);
+	cout<<" ENTER YOUR CHOICE:";
+	ch=getche();
+	if(ch==27)
+	  break;
+	else
+	    if(ch=='1')
+	      {
+	      account a;
+	      a.display_account();
+	      }
+	else
+	    if(ch=='2')
+	    {
+	    initial ini;
+	    ini.display_list();
+	    }
+	else
+	    if(ch=='3')
+	    {
+	    account a ;
+	    a.transaction();
+	    }
+	else
+	    if(ch=='4')
+	    {
+	    account a;
+	    a.new_account();
+	    }
+	else
+	    if(ch=='5')
+	    edit_menu();
+	else
+	    if(ch=='6')
+	    help();
+	else
+	    if(ch=='0')
+	    break;
+      }
+	for(int i=25;i>=1;i--)
+	{
+	delay(20);
+	gotoxy(1,i); clreol();
+	}
+}
 
