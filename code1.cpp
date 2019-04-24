@@ -238,4 +238,117 @@ while (1)
 	gotoxy(1,i); clreol();
 	}
 }
+//=============================================================
+//   FUNCTION TO DISPLAY EDIT MENU AND CALL OTHER FUNCTION
+//=============================================================
+ 
+void control::edit_menu(void)
+{
+char ch;
+while (1)
+      {
+	clrscr();
+	shape s;
+	s.box(10,5,71,21,219);
+	s.box(9,4,72,22,218);
+	textcolor(LIGHTBLUE);
+	textbackground(BLACK);
+	gotoxy(34,10);
+	cprintf(" EDIT MENU");
+	textcolor(LIGHTBLUE);
+	textbackground(BLACK);
+	gotoxy(31,12);
+	cout< <"1: MODIFY ACCOUNT :";
+	gotoxy(31,13);
+	cout<<"2: CLOSE ACCOUNT ";
+	gotoxy(31,14);
+	cout<<"0: QUIT ";
+	gotoxy(31,16);
+	cout<<"ENTER YOUR CHOICE: ";
+	ch=getche();
+	if(ch==27)
+	  break;
+	else
+	if(ch=='1')
+	{
+	initial ini;
+	ini.modify();
+	break;
+	}
+	else
+	if(ch=='2')
+	{
+	account a;
+	a.close_account();
+	break;
+	}
+	else
+	if(ch=='0')
+	break;
+      }
+}
+ 
+//=============================================================
+//           FUNCTION TO DISPLAY HELP ABOUT PROJECT
+//=============================================================
+ 
+void control::help(void)
+{
+clrscr();
+shape s;
+s.box(2,1,79,25,218);
+s.box(25,2,54,4,219);
+textcolor(LIGHTBLUE+BLINK);
+gotoxy(27,3);
+cprintf("WELCOME TO THE PROJECT BANKING ");
+textcolor(LIGHTBLUE);
+delay(10);
+gotoxy(10,6);
+cout<<"IN THIS PROJECT YOU CAN KEEP RECORD OF DAILY BANKING ";
+delay(10);
+gotoxy(10,7);
+cout<<" TRANSACTIONS.		";
+delay(10);
+gotoxy(10,9);
+cout<<" THIS PROGRAMME IS CAPABLE OF HOLDING ANY NO. OF ACCOUNTS ";
+delay(10);
+gotoxy(10,11);
+cout<<" # IN FIRST OPTION YOU CAN SEE ACCOUNT OF A PARTICULAR ";
+delay(10);
+gotoxy(10,12);
+cout<<" PERSON BY GIVING SIMPLY ACCOUNT NO. OF THAT PERSON";
+delay(10);
+gotoxy(10,14);
+cout<<"# IN SECOND OPTION YOUN CAN SEE THE LIST OF ALL ACCOUNTS. ";
+delay(10);
+gotoxy(10,16);
+cout<<"# THROUGH THIRD OPTION YOU CAN DO BANKING TRANSACTIONS ";
+delay(10);
+gotoxy(10,17);
+cout<<" ( DEPOSIT / WITHDRAW )";
+delay(10);
+gotoxy(10,19);
+cout<<"# IN FOURTH OPTION YOU CAN OPEN NEW ACCOUNT. ";
+delay(10);
+gotoxy(10,20);
+cout<<" NOTE: OPENING AMOUNT SHOULD NOT LESS THAN Rs.500/-. ";
+delay(10);
+gotoxy(10,22);
+cout<<"# IN THE FIFTH OPTION YOU CAN MODIFY OR DELETE ANY ACCOUNT. ";
+delay(10);
+gotoxy(10,24);
+cout<<"# AND LAST OPTION IS QUIT (EXIT TO DOS).";
+delay(10);
+textcolor(LIGHTBLUE+BLINK); textbackground(BLACK);
+gotoxy(26,25);
+cprintf(" PRESS ANY KEY TO CONTINUE ");
+textcolor(LIGHTBLUE);textbackground(BLACK);
+gotoxy(25,2);
+getch();
+for(int i=25;i>=1;i--)
+   {
+   delay(20);
+   gotoxy(1,i);clreol();
+   }
+}
 
