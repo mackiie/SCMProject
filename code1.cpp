@@ -564,3 +564,76 @@ void account::transaction(void)
          return;
      t_tran=toupper(t_tran);
   }
+  while(t_tran!='D' && t_tran!='W');
+  do
+  {
+      clear(5,19);
+      clear(5,23);
+      gotoxy(5,23);
+      cout<<"ENTER TRANSACTIONS BY CASH OR CHEQUE";
+      valid=1;
+      gotoxy(5,19);
+      cout<<"(CASH/CHEQUE):";
+      gets(t_type);
+      strupr(t_type);
+      if(t_type[0]=='0')
+          return;
+      if(strcmp(t_type,"CASH") && strcmp(t_type,"CHEQUE"))
+      {
+        valid=0;
+        gotoxy(5,23);
+        cprintf("\7ENTER CORRECTLY               ");
+        getch();
+      }
+  }while(!valid);
+  do
+  {
+    clear(5,21);
+    clear(5,23);
+    gotoxy(5,23);
+    cout<<"ENTER AMOUNT FOR TRANSACTION";
+    valid=1;
+    gotoxy(5,21);
+    cout<<"AMOUNT :RS.";
+    gets(tm);
+    t_amt=atof(tm);
+    t_amount=t_amt;
+    if(tm[0]=='0')
+         return;
+    if((t_tran=='W' && t_amount>t_balance)||(t_amount&lt;1))
+    {
+       valid=0;
+       gotoxy(5,23);
+       cprintf("\7INVALID DATA ENTERED             ");
+       getch();
+    }
+  }while(!valid);
+  char ch;
+  clear(5,23);
+  do
+  {
+     clear(40,20);
+     valid=1;
+     gotoxy(40,20);
+     cout< <"SAVE TRANSACTION (Y/N):  ";
+     ch=getche();
+     if(ch=='0')
+         return;
+     ch=toupper(ch);
+  }while(ch!='N' && ch!='Y');
+  if(ch=='N')
+      return;
+  float t_interest;
+  t_interest=calculate_interest(t_accno,t_balance);
+  if(t_tran=='D')
+    t_balance=t_balance+t_amount+t_interest;
+  else
+    t_balance=(t_balance-t_amount)+t_interest;
+  ini.update_balance(t_accno,t_balance);
+  add_to_file(t_accno,d1,m1,y1,t_tran,t_type,t_interest,t_amount,t_balance);
+}
+
+//============================================================
+//      THIS FUNCTION CLOSE THE ACCOUNT (DELETE ACCOUNT)
+//============================================================
+
