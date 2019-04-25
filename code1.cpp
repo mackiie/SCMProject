@@ -351,4 +351,74 @@ for(int i=25;i>=1;i--)
    gotoxy(1,i);clreol();
    }
 }
-
+//============================================================
+//  THIS FUNCTION DISPLAY RECORD FROM THE FILE BANKING.DAT
+//============================================================
+ 
+void account::display_account(void)
+{
+   clrscr();
+   char t_acc[10];
+   int t,t_accno;
+   gotoxy(71,1);
+   cout<<"&lt;0>=EXIT";
+   gotoxy(5,5);
+   cout< <"ENTER THE ACCOUNT NO.";
+   gets(t_acc);
+   t=atoi(t_acc);
+   t_accno=t;
+   if(t_accno==0)
+       return;
+   clrscr();
+   initial ini;
+   if(!ini.found_account(t_accno))
+   {
+     gotoxy(5,5);
+     cout<<"\7ACCOUNT NOT FOUND";
+     getch();
+     return;
+   }
+   box_for_display(t_accno);
+   int row=7,flag;
+   fstream file;
+   file.open("BANKING.DAT",ios::in);
+   while(file.read((char*)this,sizeof(account)))
+      {
+         if(accno==t_accno)
+           {
+             flag=0;
+             delay(10);
+             gotoxy(4,row);
+             cout<<dd  <<"/"<<mm  <<"/" <<yy;
+             gotoxy(16,row);
+             cout<<type;
+             if(tran=='D')
+               gotoxy(30,row);
+             else
+               gotoxy(42,row);
+             cout<<amount;
+             gotoxy(56,row);
+             cout<<interest;
+             gotoxy(66,row);
+             cout<<balance;
+             row++;
+             if(row==23)
+             {
+               flag=1;
+               row=7;
+               gotoxy(4,24);
+               cout<<" PRESS ANY KEY TO CONTINUE.... ";
+               getch();
+               clrscr();
+               box_for_display(t_accno);
+             }
+           }
+      }
+      file.close();
+      if(!flag)
+      {
+        gotoxy(4,24);
+        cout<<"PRESS ANY KEY TO CONTINUE.....";
+        getch();
+      }
+}
