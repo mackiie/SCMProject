@@ -422,3 +422,69 @@ void account::display_account(void)
         getch();
       }
 }
+//=========================================================
+//  THIS FUNCTION RETURNS THE DIFFERENCE BETWEEN 2 DATES
+//=========================================================
+
+int account::no_of_days(int d1,int m1,int y1,int d2,int m2,int y2)
+{
+   static int month[]={31,28,31,30,31,30,31,31,30,31,30,31};
+   int days=0;
+   while(d1!=d2 || m1!=m2 || y1!=y2)
+        {
+          days++;
+          d1++;
+          if(d1>month[m1-1])
+            {
+              d1=1;
+              m1++;
+            }
+          if(m1>12)
+            {
+              m1=1;
+              y1++;
+            }
+        }
+   return days;
+}
+
+//=============================================================
+//            THIS FUNCTION CALCULATES INTEREST
+//=============================================================
+
+float account::calculate_interest(int t_accno,float t_balance)
+{
+   fstream file;
+   file.open("BANKING.DAT",ios::in);
+   file.seekg(0,ios::beg);
+   int d1,m1,y1,days;
+   while(file.read((char *)this, sizeof(account)))
+        {
+           if(accno==t_accno)
+             {
+               d1=dd;
+               m1=mm;
+               y1=yy;
+               break;
+             }
+        }
+   int d2,m2,y2;
+   struct date d;
+   getdate(&d);
+   d2=d.da_day;
+   m2=d.da_mon;
+   y2=d.da_year;
+   float t_interest=0.0;
+   if((y2<y1 )||(y2==y1 && m2<m1)||(y2==y1&&m2==m1&&d2<d1))
+       return t_interest;
+   days=no_of_days(d1,m1,y1,d2,m2,y2);
+   int months=0;
+   if(days>=30)
+     {
+       months=days/30;
+       t_interest=((t_balance*2)/100*months);
+     }
+   file.close();
+   return t_interest;
+}
+
