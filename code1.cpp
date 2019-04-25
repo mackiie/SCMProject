@@ -487,4 +487,80 @@ float account::calculate_interest(int t_accno,float t_balance)
    file.close();
    return t_interest;
 }
-
+//============================================================
+//    THIS FUNCTION MAKES TRANSACTIONS (DEPOSIT/WITHDRAW)
+//============================================================
+ 
+void account::transaction(void)
+{
+  clrscr();
+  char t_acc[10];
+  int t,t_accno,valid;
+  gotoxy(71,1);
+  cout< <"&lt;0>=EXIT";
+  gotoxy(5,5);
+  cout< <"ENTER THE ACCOUNT NO.";
+  gets(t_acc);
+  t=atoi(t_acc);
+  t_accno=t;
+  if(t_accno==0)
+     return;
+  clrscr();
+  initial ini;
+  if(!ini.found_account(t_accno))
+    {
+      gotoxy(5,5);
+      cout<<"\7ACCOUNT NOT FOUND";
+      getch();
+      return;
+    }
+  shape s;
+  s.box(2,2,79,24,218);
+  s.line_hor(3,78,4,196);
+  s.line_hor(3,78,22,196);
+  gotoxy(71,1);
+  cout<<"&lt;0>=EXIT";
+  textbackground(BLACK);
+  gotoxy(3,3);
+  for(int i=1;i< =76;i++) cprintf(" ");
+  textbackground(BLACK);
+  textcolor(LIGHTBLUE+BLINK); textbackground(BLACK);
+  gotoxy(29,3);
+  cprintf("TRANSACTION IN ACCOUNT");
+  textcolor(LIGHTBLUE); textbackground(BLACK);
+  int d1,m1,y1;
+  struct date d;
+  getdate(&d);
+  d1=d.da_day;
+  m1=d.da_mon;
+  y1=d.da_year;
+  gotoxy(5,6);
+  cout<<"DATE: "<<d1<<"/"<<m1<<"/"<<y1;
+  gotoxy(5,8);
+  cout<<"ACCOUNT NO. #"<<t_accno;
+  char t_name[30];
+  char t_address[60];
+  float t_balance;
+  strcpy(t_name,ini.return_name(t_accno));
+  strcpy(t_address,ini.return_address(t_accno));
+  t_balance=ini.give_balance(t_accno);
+  s.box(25,10,75,13,218);
+  gotoxy(27,11);
+  cout<<"NAME  :"<<t_name;
+  gotoxy(27,12);
+  cout<<"ADDRESS:  "<<t_address;
+  gotoxy(5,15);
+  cout<<"LAST BALANCE  : RS."<<t_balance;
+  char t_tran,t_type[10],tm[10];
+  float t_amount,t_amt;
+  do
+  {
+     clear(5,18);
+     valid=1;
+     gotoxy(5,18);
+     cout<<"DEPOSIT OR WITHDRAW (D/W) :";
+     t_tran=getche();
+     if(t_tran=='0')
+         return;
+     t_tran=toupper(t_tran);
+  }
