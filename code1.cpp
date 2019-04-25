@@ -925,3 +925,128 @@ void account::delete_account(int t_accno)
     file.close();
     temp.close();
 }
+//================================================================
+//THIS FUNCTION ACCEPTS THE DATA TO ADD RECORDS IN THE
+//FILE BANKING.DAT
+//================================================================
+
+void account::new_account(void)
+{
+   char ch;
+   int i,valid;
+   clrscr();
+   initial ini;
+   shape s;
+   s.box(2,2,79,24,218);
+   s.line_hor(3,78,4,196);
+   s.line_hor(3,78,22,196);
+   gotoxy(71,1);
+   cout<<"&lt;0>=EXIT";
+   textbackground(BLACK);
+   gotoxy(3,3);
+   for(i=1;i< =76;i++)
+   cprintf("  ");
+   textbackground(BLACK);
+   textcolor(LIGHTBLUE+BLINK); textbackground(BLACK);
+   gotoxy(32,3);
+   cprintf("OPEN NEW ACCOUNT");
+   textcolor(LIGHTBLUE);
+   textbackground(BLACK);
+   int d1,m1,y1;
+   struct date d;
+   getdate(&d);
+   d1=d.da_day;
+   m1=d.da_mon;
+   y1=d.da_year;
+   int t_accno;
+   t_accno=ini.last_accno();
+   t_accno++;
+   if(t_accno==1)
+   {
+      ini.add_to_file(t_accno,"abc","xyz",1.1);
+      ini.delete_account(t_accno);
+      add_to_file(t_accno,1,1,1997,'D',"INITIAL",1.1,1.1,1.1);
+      delete_account(t_accno);
+   }
+   char t_name[30],t[10],t_address[60];
+   float t_bal=0.0, t_balance=0.0;
+   gotoxy(5,6);
+   cout<<"DATE:"<<d1<<"/"<<m1<<"/"<<y1;
+   gotoxy(5,8);
+   cout<<"ACCOUNT NO. # :"<<t_accno;
+   gotoxy(5,10);
+   cout<<"NAME   :";
+   gotoxy(8,11);
+   cout<<"ADDRESS  :";
+   gotoxy(8,12);
+   cout<<"NAME OF VARIFYING PERSON:";
+   gotoxy(5,14);
+   cout<<"INITIAL DEPOSIT";
+   do
+   {
+      clear(15,10);
+      clear(5,23);
+      gotoxy(5,23);
+      cout<<"ENTER NAME OF THE PERSON";
+      valid=1;
+      gotoxy(15,10);
+      gets(t_name);
+      strupr(t_name);
+      if(t_name[0]=='0')
+          return;
+      if(strlen(t_name)==0||strlen(t_name)>25)
+      {
+         valid=0;
+         gotoxy(5,23);
+         cprintf("\7NAME SHOULD NOT BLANK OR GREATER THAN 25");
+         getch();
+      }
+   }while(!valid);
+   do
+   {
+      clear(15,11);
+      clear(5,23);
+      gotoxy(5,23);
+      cout< <"ENTER ADDRESS OF THE PERSON";
+      valid=1;
+      gotoxy(23,11);
+      gets(t_address);
+      strupr(t_address);
+      if(t_address[0]=='0')
+           return;
+      if(strlen(t_address)==0|| strlen(t_address)>55)
+      {
+        valid =0;
+        gotoxy(5,23);
+        cprintf("\7SHOULD NOT BLANK OR GREATER THAN 55");
+        getch();
+      }
+   }while(!valid);
+   do
+   {
+      char vari[30];
+      clear(5,23);
+      gotoxy(5,23);
+      cout< <"ENTER NAME OF THE VARIFYING PERSON";
+      valid=1;
+      gotoxy(35,12);
+      gets(vari);
+      strupr(vari);
+      if(vari[0]=='0')
+          return;
+      if(strlen(vari)==0 || strlen(vari)>25)
+      {
+        valid=0;
+        gotoxy(5,23);
+        cprintf("\7SHOULD NOT BLANK OR GREATER THAN 25");
+        getch();
+      }
+   }while(!valid);
+   do
+   {
+      clear(5,23);
+      clear(5,23);
+      gotoxy(5,23);
+      cout< <"ENTER INITIAL AMOUNT TO BE DEPOSIT";
+      valid=1;
+<span lang="EN-
