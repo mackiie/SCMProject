@@ -854,4 +854,40 @@ void initial::modify(void)
    cout<<"PRESS ANY KEY TO CONTINUE...";
    getch();
 }
+//=============================================================
+//       THIS FUNCTION CLEAR THE GIVEN ROW AND COLUMNS
+//=============================================================
+ 
+void account::clear(int col, int row)
+{
+   for(int i=col;i<=78;i++)
+      {
+        gotoxy(i,row);
+        cout<<"       ";
+      }
+}
+ 
+//============================================================
+//THIS FUNCTION ADDS THE GIVEN DATA INTO THE FILE
+//BANKING.DAT
+//============================================================
+void account::add_to_file(int t_accno,int d1,int m1, int y1,
+                         char t_tran,char t_type[10],float t_interest,
+                         float t_amount, float t_balance)
+{
+   fstream file;
+   file.open("BANKING.DAT",ios::app);
+   accno=t_accno;
+   dd=d1;
+   mm=m1;
+   yy=y1;
+   tran=t_tran;
+   strcpy(type,t_type);
+   interest=t_interest;
+   amount=t_amount;
+   balance=t_balance;
+   file.write((char*)this,sizeof(account));
+   file.close();
+}
+
 
