@@ -890,4 +890,38 @@ void account::add_to_file(int t_accno,int d1,int m1, int y1,
    file.close();
 }
 
-
+//===============================================================
+//THIS FUNCTION DELETES THE RECORD FOR GIVEN ACCOUNT NO.
+//FROM FILE BANKING.DAT
+//===============================================================
+ 
+void account::delete_account(int t_accno)
+{
+    fstream file;
+    file.open("BANKING.DAT", ios::in);
+    fstream temp;
+    temp.open("temp.dat",ios::out);
+    file.seekg(0,ios::beg);
+    while(!file.eof() )
+    {
+      file.read((char *) this,sizeof(account));
+      if(file.eof())
+          break;
+      if(accno!= t_accno)
+           temp.write((char *) this,sizeof(account));
+    }
+    file.close();
+    temp.close();
+    file.open("BANKING.DAT",ios::out);
+    temp.open("temp.dat",ios::in);
+    temp.seekg(0,ios::beg);
+    while(!temp.eof())
+    {
+      temp.read((char *)this,sizeof(account));
+      if(temp.eof())
+          break;
+      file.write((char *) this, sizeof(account));
+    }
+    file.close();
+    temp.close();
+}
